@@ -12,7 +12,7 @@ ORDER BY billionaire_count DESC
 LIMIT 1;
 
 -- What is the average age of billionaires in the world --
-SELECT AVG(age) as average_age
+SELECT AVG(age) AS average_age
 FROM billionaire.bill
 
 -- Who is the youngest billionaire --
@@ -30,13 +30,16 @@ LIMIT 3;
 -- What is the self made billionaire percentage from the total billionaire --
 SELECT
 	selfmade, 
-	COUNT(selfmade), 
+	COUNT(selfmade) AS billionaire_count,
 	COUNT(selfmade) * 100/(SELECT COUNT(*) FROM billionaire.bill) AS percentage
 FROM billionaire.bill
-GROUP BY selfmade;
+GROUP BY selfmade
+ORDER BY percentage;
 
 -- What is the percentage of female self made billionaires from the total billionaire --
 SELECT COUNT(selfmade) AS female_selfmade, 
 	(COUNT(*)/(SELECT COUNT(*) FROM billionaire.bill))*100 AS percentage
 FROM billionaire.bill
 WHERE selfmade = 'TRUE' AND gender = 'F';
+
+
